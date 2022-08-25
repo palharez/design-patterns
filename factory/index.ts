@@ -1,42 +1,23 @@
-interface Product {
-  operation(): string;
+import { BikeTransport } from "./transport/BikeTransport";
+import { CarTransport } from "./transport/CarTransport";
+import { MotorcycleTransport } from "./transport/MotorcycleTransport";
+import Transport from "./transport/Transport";
+
+enum TransportType {
+  UBER = "uber",
+  LOGGI = "loggi",
+  EATS = "eats",
 }
 
-class Burger implements Product {
-  public operation(): string {
-    return "Burger: Results";
-  }
+function createTransport(transportType: TransportType): Transport {
+  const transportMap = {
+    uber: () => new CarTransport(),
+    loggi: () => new MotorcycleTransport(),
+    eats: () => new BikeTransport(),
+  };
+
+  return transportMap[transportType]();
 }
 
-class Kebab implements Product {
-  public operation(): string {
-      return 'Kebab: Operation';
-  }
-}
-
-class Pizza implements Product {
-  public operation(): string {
-      return 'Pizza: Operation';
-  }
-}
-
-enum ProductType {
-  PIZZA,
-  KEBAB,
-  BURGER
-}
-
-
-function productCreation(productType: ProductType) {
-  const productCreationDict = {
-    PIZZA: () => new Pizza(),
-    KEBAB: () => new Kebab(),
-    BURGER: () => new Burger()
-  }
-
-  return productCreationDict[productType];
-}
-
-const burger = productCreation(ProductType.BURGER);
-
-console.log(burger.operation);
+const transport = createTransport(TransportType.UBER);
+transport.startTransport();
