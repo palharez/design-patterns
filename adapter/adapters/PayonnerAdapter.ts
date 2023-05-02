@@ -14,12 +14,12 @@ export default class PayonnerAdapter implements IPayPalPayment {
   }
 
   paypalPayment(): void {
-    console.log("Realizando pagamento via Payonner");
+    console.log("Adaptando pagamento via Payonner");
     return this.payonner.sendPayment();
   }
 
   paypalReceive(): void {
-    console.log("Recebendo pagamento via Payonner");
+    console.log("Adaptando pagamento via Payonner");
     return this.payonner.receivePayment();
   }
 }
